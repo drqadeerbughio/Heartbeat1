@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BTS Heart Animation</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      overflow:hidden;
+      font-family:Arial, sans-serif;
+
+      background:url('12.jpg')
+      no-repeat center center/cover;
+    }
+
+    /* BTS TEXT */
+
+    .title{
+      position:absolute;
+      top:30px;
+      font-size:80px;
+      font-weight:bold;
+      color:white;
+      letter-spacing:12px;
+
+      text-shadow:
+      0 0 10px purple,
+      0 0 20px purple,
+      0 0 40px rgb(255,0,255);
+
+      z-index:10;
+
+      animation:
+      glow 2s infinite alternate,
+      bounce 2s infinite,
+      colorChange 4s infinite;
+    }
+
+    /* GLOW EFFECT */
+
+    @keyframes glow{
+
+      from{
+        text-shadow:
+        0 0 10px purple,
+        0 0 20px purple;
+      }
+
+      to{
+        text-shadow:
+        0 0 20px rgb(255,0,255),
+        0 0 40px rgb(255,0,255),
+        0 0 60px rgb(255,0,255);
+      }
+    }
+
+    /* UP DOWN EFFECT */
+
+    @keyframes bounce{
+
+      0%,100%{
+        transform:translateY(0);
+      }
+
+      50%{
+        transform:translateY(-15px);
+      }
+    }
+
+    /* COLOR CHANGE */
+
+    @keyframes colorChange{
+
+      0%{
+        color:white;
+      }
+
+      25%{
+        color:#ff00ff;
+      }
+
+      50%{
+        color:#00ffff;
+      }
+
+      75%{
+        color:#ff0066;
+      }
+
+      100%{
+        color:white;
+      }
+    }
+
+    /* MAIN HEART */
+
+    .heart{
+      width:120px;
+      height:120px;
+      background:rgb(255, 0, 238);
+      position:relative;
+
+      transform:rotate(-45deg);
+
+      animation:beat 1s infinite;
+
+      margin-top:120px;
+
+      z-index:2;
+    }
+
+    .heart::before,
+    .heart::after{
+
+      content:"";
+
+      width:120px;
+      height:120px;
+
+      background:rgb(255, 0, 238);
+
+      border-radius:50%;
+
+      position:absolute;
+    }
+
+    .heart::before{
+      top:-60px;
+      left:0;
+    }
+
+    .heart::after{
+      left:60px;
+      top:0;
+    }
+
+    @keyframes beat{
+
+      0%,100%{
+        transform:rotate(-45deg) scale(1);
+      }
+
+      50%{
+        transform:rotate(-45deg) scale(1.2);
+      }
+    }
+
+    /* FLOATING HEARTS */
+
+    .floating-heart{
+      position:absolute;
+      color:rgb(255, 0, 238);
+      font-size:25px;
+
+      animation:float 4s linear forwards;
+
+      z-index:1;
+    }
+
+    @keyframes float{
+
+      0%{
+        transform:translateY(0) scale(1);
+        opacity:1;
+      }
+
+      100%{
+        transform:translateY(-500px) scale(1.8);
+        opacity:0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="title">BTS</div>
+
+  <div class="heart"></div>
+
+  <script>
+
+    function createHeart(){
+
+      const heart =
+      document.createElement("div");
+
+      heart.classList.add("floating-heart");
+
+      heart.innerHTML = "❤<br>❤ ";
+
+      heart.style.left =
+      Math.random() * window.innerWidth + "px";
+
+      heart.style.bottom = "0px";
+
+      heart.style.fontSize =
+      Math.random() * 30 + 15 + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+
+    setInterval(createHeart, 120);
+
+  </script>
+
+</body>
+</html>
